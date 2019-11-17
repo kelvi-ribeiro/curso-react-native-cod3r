@@ -11,7 +11,7 @@ export default class App extends Component {
         <Simples texto='Testando ' />
         <ParImpar number={2} />
         <Inverter texto='avoN' />
-        <MegaSena numbers={9} />
+        <MegaSena numbers={4} />
       </View>
     )
   }
