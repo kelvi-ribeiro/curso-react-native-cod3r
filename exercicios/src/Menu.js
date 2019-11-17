@@ -3,11 +3,16 @@ import { createDrawerNavigator } from 'react-navigation'
 import Simples from './components/Simples'
 import ParImpar from './components/ParImpar'
 import { Inverter, MegaSena } from './components/Multi'
+import Contador from './components/Contador'
 
 export default createDrawerNavigator({
+  Contador: {
+    screen: () => <Contador />,
+    navigationOptions: { title: 'Contador' }
+  },
   Simples: {
     screen: () => <Simples texto='Simples' />,
-    navigationOptions: { title: 'Simples ' }
+    navigationOptions: { title: 'Simples' }
   },
   ParImpar: {
     screen: () => <ParImpar number={9} />,
