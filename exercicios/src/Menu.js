@@ -7,18 +7,23 @@ import Contador from './components/Contador'
 import ValidarProps from './components/ValidarProps'
 import Eventos from './components/Eventos'
 import { Avo } from './components/DirectComunication'
+import TextoSincronizado from './components/IndirectComunication'
 
 export default createDrawerNavigator({
-  AVo: {
-    screen: () => <Avo nome='João' sobrenome='Silva'  />,
-    navigationOptions: { title: 'Tag Avô(Comunicação direta)' }
+  TextoSincronizado: {
+    screen: () => <TextoSincronizado texto={'a'} />,
+    navigationOptions: { title: 'Texto Sincronizado (Comunicação indireta)' }
+  },
+  Avo: {
+    screen: () => <Avo nome='João' sobrenome='Silva' />,
+    navigationOptions: { title: 'Tag Avô (Comunicação direta)' }
   },
   Eventos: {
-    screen: () => <Eventos   />,
-    navigationOptions: { title: 'Validar Props' }
+    screen: () => <Eventos />,
+    navigationOptions: { title: 'Eventos' }
   },
   ValidarProps: {
-    screen: () => <ValidarProps ano={18}  />,
+    screen: () => <ValidarProps ano={18} />,
     navigationOptions: { title: 'Validar Props' }
   },
   Contador: {
