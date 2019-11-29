@@ -1,46 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
-  View,  
+  View,
 } from 'react-native';
-
-import {  
+import Display from './src/components/Display'
+import {
 } from 'react-native/Libraries/NewAppScreen';
 import Button from './src/components/Button'
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.buttons}>
-        <Button label='AC'></Button>
-        <Button label='/'></Button>
-        <Button label='7'></Button>
-        <Button label='8'></Button>
-        <Button label='9'></Button>
-        <Button label='*'></Button>
-        <Button label='4'></Button>
-        <Button label='5'></Button>
-        <Button label='6'></Button>
-        <Button label='-'></Button>
-        <Button label='1'></Button>
-        <Button label='2'></Button>
-        <Button label='3'></Button>
-        <Button label='+'></Button>
-        <Button label='0'></Button>
-        <Button label='.'></Button>
-        <Button label='='></Button>
+
+export default class App extends Component {
+  state = {
+    displayValue: '0'
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Display value={this.state.displayValue} />
+        <View style={styles.buttons}>
+          <Button label='AC'></Button>
+          <Button label='/'></Button>
+          <Button label='7'></Button>
+          <Button label='8'></Button>
+          <Button label='9'></Button>
+          <Button label='*'></Button>
+          <Button label='4'></Button>
+          <Button label='5'></Button>
+          <Button label='6'></Button>
+          <Button label='-'></Button>
+          <Button label='1'></Button>
+          <Button label='2'></Button>
+          <Button label='3'></Button>
+          <Button label='+'></Button>
+          <Button label='0'></Button>
+          <Button label='.'></Button>
+          <Button label='='></Button>
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
+
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,    
+    flex: 1,
   },
   buttons: {
-    flexDirection:'row',
-    flexWrap:'wrap'
-}
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  }
 });
-
-export default App;
