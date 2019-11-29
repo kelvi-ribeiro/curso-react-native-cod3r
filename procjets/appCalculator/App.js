@@ -9,36 +9,33 @@ import {
 import Button from './src/components/Button'
 
 const initialState = {
-  displayValue: '0',
-  clearDisplay: false,
+  displayValue: '0',  
   operation: null,
   values: [0, 0],
   current: 0
 }
 
 export default App = () => {
-  const [displayValue, setDisplayValue] = useState(initialState.displayValue)
-  const [clearDisplay, setClearDisplay] = useState(initialState.clearDisplay)
+  const [displayValue, setDisplayValue] = useState(initialState.displayValue)  
   const [operation, setOperation] = useState(initialState.operation)
   const [values, setValues] = useState(initialState.values)
   const [current, setCurrent] = useState(initialState.current)
 
-  addDigit = digit => {
-    if (digit === '.' && displayValue.includes('.')) return
-
-    setClearDisplay(displayValue === '0' || clearDisplay)
-    setDisplayValue(displayValue + digit)
+  addDigit = async digit => {
+    if (digit === '.' && displayValue.includes('.')) return    
+    const clearDisplay = displayValue === '0'
+    await setDisplayValue((clearDisplay ? '' : displayValue) + digit)
+    
 
     if (digit !== '.') {
-      const newValue = parseFloat(displayValue)      
+      const newValue = parseFloat(displayValue)
       values[current] = newValue
       setValues(values)
     }
   }
 
   clearMemory = () => {
-    setDisplayValue(initialState.displayValue)
-    setClearDisplay(initialState.clearDisplay)
+    setDisplayValue(initialState.displayValue)    
     setOperation(initialState.operation)
     setValues(initialState.values)
     setCurrent(initialState.current)
