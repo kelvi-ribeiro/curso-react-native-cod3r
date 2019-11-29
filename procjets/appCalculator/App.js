@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,43 +8,40 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Button from './src/components/Button'
 
-export default class App extends Component {
-  state = {
-    displayValue: '0'
-  }
+export default App = () => {
 
-  addDigit = digit => this.setState({ displayValue: digit })
+  const [displayValue, setDisplayValue] = useState(0);
 
-  clearMemory = () => this.setState({ displayValue: 0 })
+  addDigit = digit => setDisplayValue(digit)
+
+  clearMemory = () => setDisplayValue(0)
 
   setOperator = () => ''
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Display value={this.state.displayValue} />
-        <View style={styles.buttons}>
-          <Button triple label='AC' onClick={this.clearMemory} />
-          <Button label='/' operation onClick={() => this.setOperator('/')} />
-          <Button label='7' onClick={() => this.addDigit(7)} />
-          <Button label='8' onClick={() => this.addDigit(8)} />
-          <Button label='9' onClick={() => this.addDigit(9)} />
-          <Button label='*' operation onClick={() => this.setOperator('*')} />
-          <Button label='4' onClick={() => this.addDigit(4)} />
-          <Button label='5' onClick={() => this.addDigit(5)} />
-          <Button label='6' onClick={() => this.addDigit(6)} />
-          <Button label='-' operation onClick={() => this.setOperator('-')} />
-          <Button label='1' onClick={() => this.addDigit(1)} />
-          <Button label='2' onClick={() => this.addDigit(2)} />
-          <Button label='3' onClick={() => this.addDigit(3)} />
-          <Button label='+' operation onClick={() => this.setOperator('+')} />
-          <Button label='0' double onClick={() => this.addDigit(0)} />
-          <Button label='.' onClick={() => this.addDigit('.')} />
-          <Button label='=' operation onClick={() => this.setOperator('=')} />
-        </View>
+  return (
+    <View style={styles.container}>
+      <Display value={displayValue} />
+      <View style={styles.buttons}>
+        <Button triple label='AC' onClick={clearMemory} />
+        <Button label='/' operation onClick={() => setOperator('/')} />
+        <Button label='7' onClick={() => addDigit(7)} />
+        <Button label='8' onClick={() => addDigit(8)} />
+        <Button label='9' onClick={() => addDigit(9)} />
+        <Button label='*' operation onClick={() => setOperator('*')} />
+        <Button label='4' onClick={() => addDigit(4)} />
+        <Button label='5' onClick={() => addDigit(5)} />
+        <Button label='6' onClick={() => addDigit(6)} />
+        <Button label='-' operation onClick={() => setOperator('-')} />
+        <Button label='1' onClick={() => addDigit(1)} />
+        <Button label='2' onClick={() => addDigit(2)} />
+        <Button label='3' onClick={() => addDigit(3)} />
+        <Button label='+' operation onClick={() => setOperator('+')} />
+        <Button label='0' double onClick={() => addDigit(0)} />
+        <Button label='.' onClick={() => addDigit('.')} />
+        <Button label='=' operation onClick={() => setOperator('=')} />
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 
