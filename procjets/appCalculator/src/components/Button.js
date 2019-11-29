@@ -35,7 +35,7 @@ export default ({ double, triple, operation, onClick, label }) => {
   if (triple) stylesButton.push(styles.buttonTriple)
   if (operation) stylesButton.push(styles.operationButton)
   return (
-    <TouchableHighlight onPress={onClick}>
+    <TouchableHighlight onPress={() => onClick(label)}>
       <Text style={stylesButton}>{label}</Text>
     </TouchableHighlight>
   )
