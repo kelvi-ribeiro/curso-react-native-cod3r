@@ -13,3 +13,5 @@ O eixo principal é definido pela flex-direction, que tem quatro valores possív
 A propriedade `flex-direction`, por default é **column**
 A propriedade `align-items`, sempre será aplicada no cross axis, enquanto a propriedade `justifyContent` sempre será aplicada no main axis
 A propriedade com `flex:${nivelPrioridade:number}` faz com que o container do flex box cresça o máximo que puder, respeitandos os containers, a não ser que o seu nível de prioridade seja maior que a dos outros.
+Para criar um contéudo que pode quebrar linha, é só usar o estilo `flexWrap:'wrap'`
+Conseguimos medir a tela através do `Dimensions` que vem do `react native` e esse é um exemplo de uso do mesmo: `Dimensions.get('window').width / 4`
