@@ -24,8 +24,8 @@ export default App = () => {
   const [current, setCurrent] = useState(initialState.current)
 
   addDigit = digit => {
-    if (digit === '.' && displayValue.includes('.')) return
     const clearDisplay = displayValue === '0' || defaultClearDisplay
+    if (digit === '.' && !defaultClearDisplay && displayValue.includes('.')) return
     const copyDisplayValue = (clearDisplay ? '' : displayValue) + digit
     const copyValues = values
     if (digit !== '.') {
@@ -59,7 +59,7 @@ export default App = () => {
         copyValues[0] = values[0]
       }
       copyValues[1] = 0
-      setDisplayValue(copyValues[0])
+      setDisplayValue(`${copyValues[0]}`)
       setOperation(equals ? null : operator)
       setCurrent(equals ? 0 : 1)
       setDefaultClearDisplay(!equals)
