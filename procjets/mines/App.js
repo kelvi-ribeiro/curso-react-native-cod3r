@@ -12,6 +12,11 @@ const App = () => {
       <Text style={styles.welcome}>Iniciando o Mines!!</Text>
       <Text style={styles.welcome}>O tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
       <Field />
+      <Field opened />
+      <Field opened  nearMines={1}/>
+      <Field opened  nearMines={2}/>
+      <Field opened  nearMines={5}/>
+      <Field opened  nearMines={8}/>
     </View>
   );
 };
