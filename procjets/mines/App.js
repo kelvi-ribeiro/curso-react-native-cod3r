@@ -19,6 +19,7 @@ const App = () => {
       <Field opened nearMines={8} />
       <Field mined opened/>
       <Field mined opened exploded/>
+      <Field flagged/>
     </View>
   );
 };
