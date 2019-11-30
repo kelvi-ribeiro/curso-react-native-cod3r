@@ -1,13 +1,13 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-export default () => {
+export default ({ bigger }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.flagPole} />
-      <View style={styles.flag} />
-      <View style={styles.base1} />
-      <View style={styles.base2} />
+      <View style={[styles.flagPole, bigger && styles.flagPoleBigger]} />
+      <View style={[styles.flag, bigger && styles.flagBigger]} />
+      <View style={[styles.base1, bigger && styles.base1Bigger]} />
+      <View style={[styles.base2, bigger && styles.base2Bigger]} />
     </View>
   )
 }
@@ -45,6 +45,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     marginLeft: 5,
     marginTop: 12
+  },
+  flagPoleBigger: {
+    height: 28,
+    width: 4,
+    marginLeft: 16
+  },
+  flagBigger: {
+    height: 10,
+    width: 14,
+    marginLeft: 3
+  },
+  base1Bigger: {
+    height: 4,
+    width: 12,
+    marginTop: 20,
+    marginLeft: 12
+  },
+  base2Bigger: {
+    height: 4,
+    width: 20,
+    marginLeft: 8,
+    marginTop: 24
   },
 
 })
