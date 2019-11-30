@@ -5,12 +5,13 @@ import {
   Text
 } from 'react-native';
 import params from './src/params'
-
+import Field from './src/components/Field'
 const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Iniciando o Mines!!</Text>
       <Text style={styles.welcome}>O tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
+      <Field />
     </View>
   );
 };
