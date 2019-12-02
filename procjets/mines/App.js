@@ -1,40 +1,55 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
   Text
 } from 'react-native';
 import params from './src/params'
-import Field from './src/components/Field'
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Iniciando o Mines!!</Text>
-      <Text style={styles.welcome}>O tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
-      <Field />
-      <Field opened />
-      <Field opened nearMines={1} />
-      <Field opened nearMines={2} />
-      <Field opened nearMines={5} />
-      <Field opened nearMines={8} />
-      <Field mined opened/>
-      <Field mined opened exploded/>
-      <Field flagged/>
-    </View>
-  );
-};
+import MineField from './src/components/MineField'
+import {
+  createMineBoard
+} from './src/functions'
+export default class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = this.createState()
+  }
+
+  minesAmount = () => {
+    const rows = params.getRowsAmount()
+    const cols = params.getColumnsAmount()
+    return Math.ceil(cols * rows * params.difficultLevel)
+  }
+
+  createState = () => {
+    const rows = params.getRowsAmount()
+    const cols = params.getColumnsAmount()
+    return {
+      board:createMineBoard(rows,cols, this.minesAmount())
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Iniciando o Mines!!</Text>
+        <Text style={styles.welcome}>O tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
+        <View style={styles.board}>
+          <MineField board={this.state.board}/>
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  welcome: {
-    fontSize: 20,
-    padding: 20
-  },
+    justifyContent:'flex-end',
+  },  
+  board: {
+    alignItems:'center',
+    backgroundColor:'#AAA',
+  },  
 });
-
-export default App;

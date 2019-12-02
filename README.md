@@ -17,3 +17,4 @@ Para criar um contéudo que pode quebrar linha, é só usar o estilo `flexWrap:'
 Conseguimos medir a tela através do `Dimensions` que vem do `react native` e esse é um exemplo de uso do mesmo: `Dimensions.get('window').width / 4`
 O comando `react-native log-android` serve para debugar no terminal
 O comando `emulador -no-snapshot -avd ${device_name}` sendo a flag com maior faco nesse comando faz o que o boot no emulador seja zerado, ou seja, como se fosse abrir pela primeira vez
+O flexDirection no React Native por padrão é column, mas na web é row
