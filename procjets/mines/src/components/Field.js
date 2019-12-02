@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import params from '../params'
 import Mine from './Mine'
 import Flag from './Flag'
 
-export default ({ mined, opened, nearMines, exploded, flagged }) => {
+export default ({ mined, opened, nearMines, exploded, flagged, onOpen }) => {
 
   const styleFiled = [styles.field]
   if (opened) styleFiled.push(styles.opened)
@@ -21,15 +21,17 @@ export default ({ mined, opened, nearMines, exploded, flagged }) => {
     if (nearMines >= 6) color = '#F221A9'
   }
   return (
-    <View style={styleFiled}>
-      {!mined && opened && nearMines > 0 &&
-        <Text style={[styles.label, { color }]}>
-          {nearMines}
-        </Text>
-      }
-      {mined && opened && <Mine />}
-      {flagged && !opened && <Flag />}
-    </View>
+    <TouchableWithoutFeedback onPress={onOpen}>
+      <View style={styleFiled}>
+        {!mined && opened && nearMines > 0 &&
+          <Text style={[styles.label, { color }]}>
+            {nearMines}
+          </Text>
+        }
+        {mined && opened && <Mine />}
+        {flagged && !opened && <Flag />}
+      </View>
+    </TouchableWithoutFeedback>
   )
 
 }

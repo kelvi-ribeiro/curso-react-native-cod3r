@@ -45,7 +45,7 @@ const cloneBoard = board => {
 const getNeighbors = (board, row, column) => {
   const neighbors = []
   const rows = [row - 1, row, row + 1]
-  const columns = [coluns - 1, column, column + 1]
+  const columns = [column - 1, column, column + 1]
   rows.forEach(r => {
     columns.forEach(c => {
       const different = r !== row || c !== column
@@ -67,7 +67,7 @@ const safeNeighborhood = (board, row, column) => {
 const openField = (board, row, column) => {
   const field = board[row][column]
   if (!field.opened) {
-    openField = true
+    field.opened = true
     if (field.mined) {
       field.exploded = true
     } else if (safeNeighborhood(board, row, column)) {
