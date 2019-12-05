@@ -5,8 +5,9 @@ O eixo principal é definido pela flex-direction, que tem quatro valores possív
 
 | Comando | O que faz ?  |
 |---|---|
-| `react-native run-android` | Com um servidor do app em execução, basta dar esse comando para subir o app numa aplicação emulador android(|
+| `react-native run-android` | Com um servidor do app em execução, basta dar esse comando para subir o app numa aplicação emulador android|
 | `react-native init exercicios`  | Comando para criar um projeto com react-native-cli  |
+| `react-native link`  | Comando utilizado para automaticamente criar dependedências das bibliotecas usada nos projetos nativo(Android e IOS). Geralmente é utilizado após a instalação de alguma lib externa, para sincronizar fontes e etc.  |
 
 ### Anotações rápidas 
 
