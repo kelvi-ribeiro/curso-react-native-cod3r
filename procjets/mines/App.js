@@ -14,8 +14,10 @@ import {
   hadExplosion,
   wonGame,
   showMines,
-  invertFlag
+  invertFlag,
+  flagsUsed
 } from './src/functions'
+import Header from './src/components/Header';
 export default class App extends Component {
 
   constructor(props) {
@@ -62,17 +64,17 @@ export default class App extends Component {
     const board = cloneBoard(this.state.board)
     invertFlag(board, row, column)
     const won = wonGame(board)
-    if(won) {
+    if (won) {
       Alert.alert('Parabéns', 'Você venceu')
     }
-    this.setState({board, won})
+    this.setState({ board, won })
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Iniciando o Mines!!</Text>
-        <Text style={styles.welcome}>O tamanho da grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
+        <Header flagsLeft={this.minesAmount() - flagsUsed(this.state.board)}
+          onNewGame={() => this.setState(this.createState())} />
         <View style={styles.board}>
           <MineField onSelectField={this.onSelectField} onOpenField={this.onOpenField} board={this.state.board} />
         </View>
