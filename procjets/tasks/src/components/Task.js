@@ -13,7 +13,7 @@ export default props => {
     check = (
       <View style={styles.done}>
         <Icon name='check' size={20}
-          color={commonStyles.colors.seconday} />
+          color={commonStyles.colors.secondary} />
       </View>
     )
   } else {

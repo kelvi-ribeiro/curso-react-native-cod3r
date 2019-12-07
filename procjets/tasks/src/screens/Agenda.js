@@ -121,14 +121,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: commonStyles.fontFamily,
-    color: commonStyles.colors.seconday,
+    color: commonStyles.colors.secondary,
     fontSize: 50,
     marginLeft: 20,
     marginBottom: 10
   },
   subtitle: {
     fontFamily: commonStyles.fontFamily,
-    color: commonStyles.colors.seconday,
+    color: commonStyles.colors.secondary,
     fontSize: 20,
     marginLeft: 20,
     marginBottom: 30
