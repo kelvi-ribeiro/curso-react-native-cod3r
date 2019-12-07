@@ -4,6 +4,7 @@ import moment from 'moment'
 import 'moment/locale/pt-br'
 import todayImage from '../../assets/imgs/today.jpg'
 import commonStyles from '../commonStyles'
+import Task from '../components/Task'
 
 export default class Agenda extends Component {
   render() {
@@ -15,9 +16,8 @@ export default class Agenda extends Component {
           <Text style={styles.subtitle}>{moment().locale('pt-br').format('ddd, D [de] MMMM')}</Text>
         </ImageBackground>
         <View style={styles.taskContainer}>
-          <Text>Tarefa 1</Text>
-          <Text>Tarefa 2</Text>
-          <Text>Tarefa 3</Text>
+          <Task description="Tarefa pendente" estimateAt={new Date()} doneAt={null}/>
+          <Task description="Tarefa concluída" estimateAt={new Date()} doneAt={new Date()}/>
         </View>
       </View>
     )
