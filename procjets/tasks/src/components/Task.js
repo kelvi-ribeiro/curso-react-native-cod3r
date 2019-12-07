@@ -6,6 +6,8 @@ import 'moment/locale/pt-br'
 import commonStyles from '../commonStyles'
 
 export default props => {
+  console.log(props);
+  
   let check = null
   if (props.doneAt != null) {
     check = (

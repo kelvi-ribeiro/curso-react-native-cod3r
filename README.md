@@ -20,3 +20,4 @@ O comando `react-native log-android` serve para debugar no terminal.
 O comando `emulador -no-snapshot -avd ${device_name}` sendo a flag com maior faco nesse comando faz o que o boot no emulador seja zerado, ou seja, como se fosse abrir pela primeira vez.
 O flexDirection no React Native por padrão é column, mas na web é row, isso é porque em ambientes web, ou seja, num desktop, notebook, a tela tem uma grande largura, comparada com uma tela de dispositivo mobile, que sempre ganha no comprimento.
 A propriedade `flexWrap:'wrap'` com que, se uma um elemento passar do limite do dispositivo, o elemento vai para a linha de baixo ou coluna de baixo dependendo de como o `flexDirection` esteja setado.
+O componente `FlatList` que serve para implemetar exemplo de listas, com ele, também ganhamos um scroll dentro do próprio elemento.
