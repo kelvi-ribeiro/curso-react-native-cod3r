@@ -16,11 +16,20 @@ import moment from 'moment'
 import commonStyles from '../commonStyles'
 import 'moment/locale/pt-br'
 
-const initialState = { description: '', date: new Date() }
+
 
 export default class AddTask extends Component {
+  constructor(props) {
+    super(props)
+    this.state = this.getInitialState()
+  }
 
-  state = { ...initialState }
+  getInitialState = () => {
+    return {
+      description: '',
+      date: new Date()
+    }
+  }
 
   save = () => {
     if (!this.state.description.trim()) {
@@ -62,7 +71,8 @@ export default class AddTask extends Component {
     return (
       <Modal onRequestClose={this.props.onCancel}
         visible={this.props.isVisible}
-        animationType='slide' taskContainer={true}>
+        animationType='slide' taskContainer={true}
+        onShow={() => this.setState({ ...this.getInitialState() })}>
         <TouchableWithoutFeedback onPress={this.props.onCancel}>
           <View style={styles.offset} />
         </TouchableWithoutFeedback>
