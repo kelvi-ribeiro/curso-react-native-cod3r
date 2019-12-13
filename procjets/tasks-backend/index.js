@@ -5,14 +5,15 @@ const consign = require('consign')
 
 
 consign()
-    .then('./config/middlewares.js')
-    .then('./api')
-    .then('./config/routes.js')
-    .into(app)
+  .include('./config/passport.js')
+  .then('./config/middlewares.js')
+  .then('./api')
+  .then('./config/routes.js')
+  .into(app)
 
 
 app.db = db
 
 app.listen(3000, () => {
-  console.log('Backend executando...');  
+  console.log('Backend executando...');
 })
