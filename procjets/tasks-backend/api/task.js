@@ -12,18 +12,18 @@ module.exports = app => {
       .catch(err => res.status(500).json(err))
   }
   const save = (req, res) => {
-    if (!req.body.description.trim()) {
+    if (!req.body.description) {
       return res.status(400).send('Descrição é um campo obrigatório')
     }
     req.body.userId = req.user.id
     app.db('tasks')
-      .insert(req.bdoy)
+      .insert(req.body)
       .then(_ => res.status(204).send())
       .catch(err => res.status(400).json(err))
   }
   const remove = (req, res) => {
     app.db('tasks')
-      .where({ id: req.params.id, userId: req.user, id })
+      .where({ id: req.params.id, userId: req.user.id })
       .del()
       .then(rowsDeleted => {
         if (rowsDeleted > 0) {
@@ -35,4 +35,26 @@ module.exports = app => {
       })
       .catch(err => res.status(400).json(err))
   }
+  const updateTaskDoneAt = (req, res, doneAt) => {
+    app.db('tasks')
+      .where({ id: req.params.id, userId: req.user.id })
+      .update({ doneAt })
+      .then(_ => res.status(204).send())
+      .catch(err => res.status(400).json(err))
+  }
+  const toggleTask = (req, res, doneAt) => {
+    app.db('tasks')
+      .where({ id: req.params.id, userId: req.user.id })
+      .first()
+      .then(task => {
+        if (!task) {
+          const msg = `Task com o id ${req.params.id} não encontrada`
+          return res.status(400).send(msg)
+        }
+        const doneAt = task.doneAt ? null : new Date()
+        updateTaskDoneAt(req, res, doneAt)
+      })
+      .catch(err => res.status(400).json(err))
+  }
+  return { getTasks, save, remove, toggleTask }
 }
