@@ -3,7 +3,8 @@
 module.exports = {
 
   client: 'postgresql',
-  connection: process.env.DATABASE_URL,
+  connection: process.env.DATABASE_URL || 
+  'postgres://adminTasks:pgpassword@localhost:5432/tasks',
   pool: {
     min: 2,
     max: 10
