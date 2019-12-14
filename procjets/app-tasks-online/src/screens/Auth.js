@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
   ImageBackground,
   TouchableOpacity,
   Alert,
 } from 'react-native'
+import axios from 'axios'
+import { server, showError } from '../common'
 import commonStyles from '../commonStyles'
 import backgroundImage from '../../assets/imgs/login.jpg'
 import AuthInput from '../components/AuthInput'
@@ -20,11 +21,33 @@ export default class Auth extends Component {
     password: '',
     confirmPassword: '',
   }
-  signinOrSignup = () => {
+  signinOrSignup = async () => {
+    const { name, email, password, confirmPassword } = this.state
     if (this.state.stageNew) {
-      Alert.alert('Sucesso', 'Criar conta')
+      try {
+        await axios.post(`${server}/signup`, {
+          name,
+          email,
+          password,
+          confirmPassword
+        })
+        Alert.alert('Sucesso!', 'Usuário cadastrado')
+      } catch (error) {
+        showError(error)
+      }
     } else {
-      Alert.alert('Sucesso', 'Logar')
+      try {
+        const res = await axios.post(`${server}/signin`, {
+          email,
+          password,
+        })
+        axios.defaults
+          .headers.common['Authorization'] = `Bearer ${res.data.token}`
+        this.props.navigation.navigate('Home')
+
+      } catch (error) {
+        Alert.alert('Erro', 'Falha no login')
+      }      
     }
   }
   render() {
@@ -48,13 +71,13 @@ export default class Auth extends Component {
             style={styles.input}
             value={this.state.email}
             onChangeText={email => this.setState({ email })} />
-          <AuthInput icon='lock' secureTextEntry={true} 
+          <AuthInput icon='lock' secureTextEntry={true}
             placeholder="Senha"
             style={styles.input}
             value={this.state.password}
             onChangeText={password => this.setState({ password })} />
           {this.state.stageNew &&
-            <AuthInput icon='astersk' secureTextEntry={true}  placeholder="Confirmação"
+            <AuthInput icon='asterisk' secureTextEntry={true} placeholder="Confirmação"
               style={styles.input}
               value={this.state.confirmPassword}
               onChangeText={confirmPassword => {
