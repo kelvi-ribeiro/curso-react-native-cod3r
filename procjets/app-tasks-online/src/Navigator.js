@@ -6,7 +6,7 @@ import Menu from './screens/Menu'
 import Agenda from './screens/Agenda'
 import Auth from './screens/Auth'
 import commonStyles from './commonStyles';
-
+import AuthOrApp from '../src/screens/AuthOrApp'
 const MenuRoutes = {
   Today: {
     name: 'Today',
@@ -56,6 +56,10 @@ const MenuConfig = {
 const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 
 const MainRoutes = createStackNavigator({
+  Loading: {
+    name: 'Loading',
+    screen: AuthOrApp
+  },
   Auth: {
     name: 'Auth',
     screen: Auth
@@ -66,7 +70,7 @@ const MainRoutes = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'Loading',
     headerMode: 'none'
   })
 

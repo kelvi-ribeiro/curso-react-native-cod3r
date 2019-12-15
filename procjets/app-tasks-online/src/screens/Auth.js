@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Alert,
+  AsyncStorage,
 } from 'react-native'
 import axios from 'axios'
 import { server, showError } from '../common'
@@ -17,13 +18,11 @@ export default class Auth extends Component {
   state = {
     stageNew: false,
     name: '',
-    email: 'kelvi.ribeiro@gmail.com',
-    password: '123456',
+    email: '',
+    password: '',
     confirmPassword: '',
   }
-  componentDidMount(){
-    this.signinOrSignup()
-  }
+  
   signin = async ({ email, password }) => {
     try {
       const res = await axios.post(`${server}/signin`, {
@@ -32,6 +31,7 @@ export default class Auth extends Component {
       })
       axios.defaults
         .headers.common['Authorization'] = `Bearer ${res.data.token}`
+      AsyncStorage.setItem('userData',JSON.stringify(res.data))
       this.props.navigation.navigate('Home', res.data)
 
     } catch (error) {
