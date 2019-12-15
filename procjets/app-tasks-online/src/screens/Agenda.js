@@ -7,8 +7,8 @@ import {
   FlatList,
   TouchableOpacity,
   Platform,
-  AsyncStorage
 } from 'react-native'
+import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import todayImage from '../../assets/imgs/today.jpg'
@@ -17,6 +17,7 @@ import Task from '../components/Task'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
+import { server, showError } from '../common'
 
 export default class Agenda extends Component {
   state = {
@@ -27,22 +28,21 @@ export default class Agenda extends Component {
   }
 
   addTask = async task => {
-    const tasks = [...this.state.tasks]
-    tasks.push({
-      id: Math.random(),
-      description: task.description,
-      estimateAt: task.date,
-      doneAt: null
-    })
-    await this.setState({ tasks, showAddTask: false })
-    this.filterTasks()
+    try {
+      await axios.post(`${server}/tasks`, {
+        description: task.description,
+        estimateAt: task.date,
+      })
+      await this.setState({ showAddTask: false })
+      this.loadTasks()
+    } catch (error) {      
+      
+      showError(error)
+    }
   }
 
   async componentDidMount() {
-    const data = await AsyncStorage.getItem('tasks')
-    const tasks = JSON.parse(data) || []
-    await this.setState({ tasks })
-    this.filterTasks()
+    this.loadTasks()
   }
 
   filterTasks = async () => {
@@ -54,7 +54,6 @@ export default class Agenda extends Component {
       visibleTasks = this.state.tasks.filter(pending)
     }
     await this.setState({ visibleTasks })
-    AsyncStorage.setItem('tasks', JSON.stringify(this.state.tasks))
   }
 
   toggleFilter = async () => {
@@ -63,22 +62,32 @@ export default class Agenda extends Component {
   }
 
   toggleTask = async id => {
-    await this.setState({
-      tasks: this.state.tasks
-        .map(task => {
-          if (task.id === id) {
-            task = { ...task, doneAt: task.doneAt ? null : new Date() }
-          }
-          return task
-        })
-    })
-    this.filterTasks()
+    try {
+      await axios.put(`${server}/tasks/${id}/toggle`)
+      await this.loadTasks()
+    } catch (error) {
+      showError(error)
+    }
+  }
+
+  loadTasks = async () => {
+    try {
+      const maxDate = moment().format('YYYY-MM-DD 23:59')
+      const res = await axios.get(`${server}/tasks?date=${maxDate}`)
+      await this.setState({ tasks: res.data })
+      this.filterTasks()
+    } catch (error) {
+      showError(error)
+    }
   }
 
   deleteTask = async id => {
-    const tasks = this.state.tasks.filter(task => task.id !== id)
-    await this.setState({ tasks })
-    this.filterTasks()
+    try {
+      axios.delete(`${server}/tasks/${id}`)
+      await this.loadTasks()
+    } catch (error) {
+      showError(error)
+    }
   }
   render() {
     return (
@@ -98,12 +107,15 @@ export default class Agenda extends Component {
 
           </View>
           <Text style={styles.title}>Hoje</Text>
-          <Text style={styles.subtitle}>{moment().locale('pt-br').format('ddd, D [de] MMMM')}</Text>
+          <Text style={styles.subtitle}>
+            {moment().locale('pt-br').format('ddd, D [de] MMMM')}
+          </Text>
         </ImageBackground>
         <View style={styles.taskContainer}>
           <FlatList data={this.state.visibleTasks}
             keyExtractor={item => `${item.id}`}
-            renderItem={({ item }) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask} />} />
+            renderItem={({ item }) => <Task {...item}
+              onToggleTask={this.toggleTask} onDelete={this.deleteTask} />} />
         </View>
         <ActionButton buttonColor={commonStyles.colors.today}
           onPress={() => this.setState({ showAddTask: true })} />

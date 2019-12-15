@@ -17,9 +17,12 @@ export default class Auth extends Component {
   state = {
     stageNew: false,
     name: '',
-    email: '',
-    password: '',
+    email: 'kelvi.ribeiro@gmail.com',
+    password: '123456',
     confirmPassword: '',
+  }
+  componentDidMount(){
+    this.signinOrSignup()
   }
   signin = async ({ email, password }) => {
     try {
