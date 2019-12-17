@@ -15,10 +15,12 @@ export default class Feed extends Component {
           comments: [
             {
               nickname: 'Antônio Lima',
+              email: 'mathews.kyle@gmail.com',
               comment: 'Stunning!'
             },
             {
               nickname: 'Jackson Pereira',
+              email: 'example@gmail.com',
               comment: 'Foto bem legal!'
             }
           ]
