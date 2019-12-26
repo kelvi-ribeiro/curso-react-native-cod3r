@@ -1,43 +1,15 @@
-import { ADD_POST, ADD_COMMENT } from '../actions/actionTyes'
+import { SET_POSTS, ADD_COMMENT } from '../actions/actionTyes'
 
 const initialState = {
-  posts: [
-    {
-      id: Math.random(),
-      nickname: 'Kelvi Ribeiro',
-      email: 'kelvi.ribeiro@gmail.com',
-      image: require('../../../assets/imgs/fence.jpg'),
-      comments: [
-        {
-          nickname: 'Antônio Lima',
-          email: 'mathews.kyle@gmail.com',
-          comment: 'Stunning!'
-        },
-        {
-          nickname: 'Jackson Pereira',
-          email: 'example@gmail.com',
-          comment: 'Foto bem legal!'
-        }
-      ]
-    },
-    {
-      id: Math.random(),
-      nickname: 'Kauan Ribero',
-      email: 'kauan.ribeiro.testeiro@gmail.com',
-      image: require('../../../assets/imgs/bw.jpg'),
-      comments: []
-    }
-  ]
+  posts: []
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST:
+    case SET_POSTS:
       return {
         ...state,
-        posts: state.posts.concat({
-          ...action.payload
-        })
+        posts: action.payload
       }
     case ADD_COMMENT:
       return {
