@@ -3,7 +3,7 @@ import {
   USER_LOGGED_OUT,
   LOADING_USER,
   USER_LOADED
-} from '../actions/actionTyes'
+} from '../actions/actionTypes'
 
 const initialState = {
   name: null,

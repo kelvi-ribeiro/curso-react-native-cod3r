@@ -3,7 +3,7 @@ import {
   USER_LOGGED_OUT,
   LOADING_USER,
   USER_LOADED
-} from './actionTyes'
+} from './actionTypes'
 import axios from 'axios'
 
 const authBaseURL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty'

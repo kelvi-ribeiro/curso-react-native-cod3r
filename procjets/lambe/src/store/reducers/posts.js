@@ -2,8 +2,8 @@ import {
   SET_POSTS,
   ADD_COMMENT,
   CREATING_POSTS,
-  POSTS_CREATED
-} from '../actions/actionTyes'
+  POST_CREATED
+} from '../actions/actionTypes'
 
 const initialState = {
   posts: [],
@@ -38,7 +38,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         isUploading: true
       }
-    case POSTS_CREATED:
+    case POST_CREATED:
       return {
         ...state,
         isUploading: false
