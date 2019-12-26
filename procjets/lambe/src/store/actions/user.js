@@ -23,7 +23,7 @@ export const logout = () => {
 }
 export const createUser = user => {
   return dispatch => {
-    /* dispatch(loadingUser()) */
+    dispatch(loadingUser())
     axios.post(`${authBaseURL}/signupNewUser?key=${API_KEY}`, {
       email: user.email,
       password: user.password,
@@ -36,8 +36,11 @@ export const createUser = user => {
             name: user.name
           })
             .catch(err => console.log(err))
-            .then((res) => {
-              console.log('Usuário criado com sucesso');
+            .then(() => {
+              delete user.password
+              user.id = res.data.localId
+              dispatch(userLogged(user))
+              dispatch(userLoaded())
 
             })
         }
