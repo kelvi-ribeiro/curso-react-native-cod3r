@@ -11,7 +11,7 @@ const storage = new Storage({
 exports.uploadImage = functions.https.onRequest((request, response) => {
   cors(request, response, () => {
     try {
-      fs.writeFileSync('/tmp/imageTosSave.jpg', request.body.image, 'base64')
+      fs.writeFileSync('/tmp/imageToSave.jpg', request.body.image, 'base64')
       const bucket = storage.bucket('lambe-cod3r-kelvi.appspot.com')
       const id = uuid()
       bucket.upload('/tmp/imageToSave.jpg', {
