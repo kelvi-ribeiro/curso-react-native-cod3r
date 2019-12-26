@@ -1,22 +1,31 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addComment } from '../store/actions/posts'
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableWithoutFeedback as TWF,
-  Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export class AddComment extends Component {
+class AddComment extends Component {
   state = {
     comment: '',
     editMode: true
   }
 
   handleAddComment = () => {
-    Alert.alert('Adicionado', this.state.comment)
+    this.props.onAddComment({
+      postId: this.props.postId,
+      comment: {
+        nickname: this.props.name,
+        comment: this.state.comment,
+        email: this.props.email
+      }
+    })
+    this.setState({ comment: '', editMode: false })
   }
 
   render() {
@@ -41,7 +50,7 @@ export class AddComment extends Component {
             <Icon name='comment-o' size={25} color='#555' />
             <Text style={styles.caption}>
               Adicione um comentário...
-                        </Text>
+            </Text>
           </View>
         </TWF>
       )
@@ -71,3 +80,16 @@ const styles = StyleSheet.create({
     width: '90%'
   }
 })
+
+const mapStateToProps = ({ user }) => {
+  return {
+    name: user.name,
+    email: user.email,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddComment: payload => dispatch(addComment(payload))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddComment)

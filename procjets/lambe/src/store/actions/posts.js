@@ -1,4 +1,4 @@
-import { ADD_POST } from './actionTyes'
+import { ADD_POST, ADD_COMMENT } from './actionTyes'
 
 export const addPost = post => {
   return {
@@ -6,3 +6,11 @@ export const addPost = post => {
     payload: post
   }
 }
+
+export const addComment = payload => {
+  return {
+    type: ADD_COMMENT,
+    payload
+  }
+}
+

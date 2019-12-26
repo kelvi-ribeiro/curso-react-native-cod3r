@@ -10,8 +10,7 @@ import {
   Image,
   Dimensions,
   Platform,
-  ScrollView,
-  Alert
+  ScrollView,  
 } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 
