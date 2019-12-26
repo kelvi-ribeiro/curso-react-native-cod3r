@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addPost } from '../store/actions/posts'
 import {
   View,
   Text,
@@ -33,7 +35,19 @@ class AddPhoto extends Component {
   }
 
   save = async () => {
-    Alert.alert('Imagem adicionada!', this.state.comment)
+    this.props.onAddPost({
+      id: Math.random(),
+      nickname: this.props.name,
+      email: this.props.email,
+      image: this.state.image,
+      comments: [{
+        nickname: this.props.name,
+        email: this.props.email,
+        comment: this.state.comment
+      }]
+    })
+    this.setState({ iamge: null, comment: '' })
+    this.props.navigation.navigate('Feed')
   }
 
   render() {
@@ -51,7 +65,7 @@ class AddPhoto extends Component {
           </TouchableOpacity>
           <TextInput placeholder='Algum comentário para a foto?'
             style={styles.input} value={this.state.comment}
-            editable={this.props.name != null}
+
             onChangeText={comment => this.setState({ comment })} />
           <TouchableOpacity onPress={this.save}
             disabled={this.props.loading}
@@ -103,5 +117,17 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = ({ user }) => {
+  return {
+    email: user.email,
+    name: user.name
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPost: post => dispatch(addPost(post))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto)
 
-export default AddPhoto
+
