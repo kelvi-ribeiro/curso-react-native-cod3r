@@ -23,6 +23,16 @@ class AddPhoto extends Component {
     comment: '',
   }
 
+  componentDidUpdate = prevProps => {
+    if (prevProps.loading && !this.props.loading) {
+      this.setState({
+        image: null,
+        comment: ''
+      })
+      this.props.navigation.navigate('Feed')
+    }
+  }
+
   pickImage = () => {
     if (!this.props.name) {
       Alert.alert('Falha', noUser)
@@ -44,7 +54,7 @@ class AddPhoto extends Component {
       Alert.alert('Falha', noUser)
       return
     }
-    this.props.onAddPost({
+    await this.props.onAddPost({
       id: Math.random(),
       nickname: this.props.name,
       email: this.props.email,
@@ -55,7 +65,7 @@ class AddPhoto extends Component {
         comment: this.state.comment
       }]
     })
-    this.setState({ iamge: null, comment: '' })
+    await this.setState({ iamge: null, comment: '' })
     this.props.navigation.navigate('Feed')
   }
 
@@ -126,10 +136,11 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user, posts }) => {
   return {
     email: user.email,
-    name: user.name
+    name: user.name,
+    loading: posts.isUploading
   }
 }
 const mapDispatchToProps = dispatch => {

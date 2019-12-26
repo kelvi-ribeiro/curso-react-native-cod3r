@@ -1,7 +1,13 @@
-import { SET_POSTS, ADD_COMMENT } from '../actions/actionTyes'
+import {
+  SET_POSTS,
+  ADD_COMMENT,
+  CREATING_POSTS,
+  POSTS_CREATED
+} from '../actions/actionTyes'
 
 const initialState = {
-  posts: []
+  posts: [],
+  isUploading: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +32,16 @@ const reducer = (state = initialState, action) => {
           }
           return post
         })
+      }
+    case CREATING_POSTS:
+      return {
+        ...state,
+        isUploading: true
+      }
+    case POSTS_CREATED:
+      return {
+        ...state,
+        isUploading: false
       }
     default: return state
   }

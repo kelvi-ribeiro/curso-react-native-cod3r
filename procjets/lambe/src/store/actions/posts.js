@@ -1,8 +1,13 @@
-import { SET_POSTS, ADD_COMMENT } from './actionTyes'
+import {
+  SET_POSTS,
+  ADD_COMMENT,
+  CREATING_POSTS,
+  POSTS_CREATED
+} from './actionTyes'
 import axios from 'axios'
 export const addPost = post => {
   return dispatch => {
-    // https://us-central1-lambe-cod3r-kelvi.cloudfunctions.net/uploadImage
+    dispatch(creatingPosts())
     axios({
       url: 'uploadImage',
       baseURL: 'https://us-central1-lambe-cod3r-kelvi.cloudfunctions.net',
@@ -15,7 +20,10 @@ export const addPost = post => {
       .then(resp => {
         post.image = resp.data.imageUrl
         axios.post('/posts.json', { ...post })
-          .then(()=> dispatch(fetchPosts()))
+          .then(() => {
+            dispatch(fetchPosts())
+            dispatch(postsCreated())
+          })
           .catch(err => console.log(err))
       })
   }
@@ -53,10 +61,23 @@ export const fetchPosts = () => {
             ...rawPosts[key],
             id: key
           })
-          dispatch(setPosts(posts))
+          dispatch(setPosts(posts.reverse()))
         }
       })
       .catch(err => console.log(err))
   }
 }
+
+export const creatingPosts = () => {
+  return {
+    type: CREATING_POSTS
+  }
+}
+
+export const postsCreated = () => {
+  return {
+    type: POSTS_CREATED
+  }
+}
+
 
